@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h5>您的账户余额为 <span id="amount">&&&amount&&&</span></h5>
+    <button id="button">付款1元</button>
+    <script>
+        button.addEventListener('click',(e)=>{
+            let script=document.createElement('script')
+            script.src='/pay'
+            document.body.appendChild(script)
+            script.onload=function(e){
+                e.currentTarget.remove()
+            }
+            script.onerror=function(e){
+                alert('付款失败')
+                e.currentTarget.remove()
+            }
+        })
+    </script>
+    
+    
+</body>
+</html>
