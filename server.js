@@ -10,11 +10,11 @@ if(!port){
 
 var server = http.createServer(function(request, response){
   var parsedUrl = url.parse(request.url, true)
-  var path = request.url 
-  var query = ''
-  if(path.indexOf('?') >= 0){ query = path.substring(path.indexOf('?')) }
-  var pathNoQuery = parsedUrl.pathname
-  var queryObject = parsedUrl.query
+  var pathWithQuery = request.url 
+  var queryString = ''
+  if(pathWithQuery.indexOf('?') >= 0){ queryString = pathWithQuery.substring(pathWithQuery.indexOf('?')) }
+  var path = parsedUrl.pathname
+  var query = parsedUrl.query
   var method = request.method
 
   /******** 从这里开始看，上面不要看 ************/
@@ -41,21 +41,17 @@ var server = http.createServer(function(request, response){
         response.setHeader('Content-Type', 'text/html; charset=utf-8')
         response.write(string)
         response.end()
-       }else if(path === '/pay'){
+       }else if(path == '/pay'){
           var amount=fs.readFileSync('./db','utf8')
           var newAmount=amount-1
-          if(Math.random()>0.5){
-            fs.writeFileSync('./db',newAmount)
-            response.setHeader('Content-Type','application/javascript')
-            response.statusCode=200
-            response.write(`
-              alert("付款成功")
-              amount.innerText=amount.innerText-1
-            `)
-          }else{
-            response.statusCode=400
-            response.write('失败')
-          }
+          
+          fs.writeFileSync('./db',newAmount)
+          response.setHeader('Content-Type','application/javascript')
+          response.statusCode=200
+          response.write(`
+            ${query.callback}.call(undefined,'成功')
+          `)
+          
           response.end()
        }else{
          response.statusCode=404
