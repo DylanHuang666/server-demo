@@ -20,7 +20,7 @@ var server = http.createServer(function(request, response){
   /******** 从这里开始看，上面不要看 ************/
 
 
-  console.log('HTTP 路径为\n' + path)
+  console.log('HTTP 路径为\n' + pathWithQuery)
   if(path == '/style.css')
    {
     var string=fs.readFileSync('./style.css','utf8')
