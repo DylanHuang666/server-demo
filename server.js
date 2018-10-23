@@ -56,8 +56,7 @@ var server = http.createServer(function(request, response){
           response.end()
        }else if(path === '/xxx'){
           response.statusCode=200
-          response.setHeader('Content-Tyle','text/xml;charset=utf-8')
-          response.setHeader('Access-Control-Allow-Origin','http://frank.com:8001')
+          response.setHeader('Content-Tyle','text/json;charset=utf-8')
           response.write(`
             {
               "note":{
