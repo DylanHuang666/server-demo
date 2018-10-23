@@ -3,6 +3,7 @@ myButton.addEventListener('click',(e)=>{
     request.onreadystatechange=()=>{
         if(request.readyState==4){
             console.log('请求响应都完成了')
+            console.log(request.status)
             if(request.status>=200 && request.status<300){
                 let string=request.responseText
                 let object=window.JSON.parse(string)
@@ -12,6 +13,6 @@ myButton.addEventListener('click',(e)=>{
             }
         }
     }
-    request.open('GET','/xxx')
+    request.open('GET','http://jack.com:8002/xxx')
     request.send()
 })
