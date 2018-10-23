@@ -29,7 +29,8 @@ var server = http.createServer(function(request, response){
      response.end()
    }else if(path == '/main.js')
     {
-      var string=fs.readFileSync('./main.js','utf8')
+      let string=fs.readFileSync('./main.js','utf8')
+      response.statusCode=200
       response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
       response.write(string)
       response.end()
@@ -46,12 +47,26 @@ var server = http.createServer(function(request, response){
           var newAmount=amount-1
           
           fs.writeFileSync('./db',newAmount)
-          response.setHeader('Content-Type','application/javascript')
+          response.setHeader('Content-Type','application/javascript;charset=utf-8')
           response.statusCode=200
           response.write(`
             ${query.callback}.call(undefined,'成功')
           `)
           
+          response.end()
+       }else if(path === '/xxx'){
+          response.statusCode=200
+          response.setHeader('Content-Tyle','text/xml;charset=utf-8')
+          response.write(`
+            {
+              "note":{
+                "to":"jay",
+                "from":"mike",
+                "heading":"问好",
+                "content":"你好"
+              }
+            }
+          `)
           response.end()
        }else{
          response.statusCode=404

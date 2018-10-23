@@ -8,23 +8,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-    <h5>您的账户余额为 <span id="amount">&&&amount&&&</span></h5>
-    <button id="button">付款1元</button>
-    <script>
-      
-        button.addEventListener('click',(e)=>{
-            $.ajax({
-            url: "http://jack.com:8002/pay",
-            dataType: "jsonp",
-            success: function( response ) {
-                if(response === '成功'){
-                    alert('付款成功')
-                    amount.innerText = amount.innerText - 1
-                }
-            }
-            })
-        })
-    </script>
+    
+    <button id="myButton">点我</button>
+    <script src="./main.js"></script>
     
     
 </body>
