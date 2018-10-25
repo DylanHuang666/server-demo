@@ -1,18 +1,29 @@
-myButton.addEventListener('click',(e)=>{
+window.jQuery.ajax=function({url,method,body,success, fail}){
     let request=new XMLHttpRequest()
     request.onreadystatechange=()=>{
         if(request.readyState==4){
-            console.log('请求响应都完成了')
-            console.log(request.status)
             if(request.status>=200 && request.status<300){
-                let string=request.responseText
-                let object=window.JSON.parse(string)
-                console.log(object.note.content)
+                success.call(undefined,request.responseText)
             }else if(request.status>=400){
-                console.log('请求失败了')
+                fail.call(undefined,request)
             }
         }
     }
-    request.open('GET','http://jack.com:8002/xxx')
-    request.send()
+    request.open(method,url)
+    request.send(body)
+}
+
+
+
+myButton.addEventListener('click',(e)=>{
+    window.jQuery.ajax({
+        url:'/xxx',
+        method:'GET',
+        success:(x)=>{
+            console.log(x)
+        },
+        fail:(x)=>{
+            console.log(x)
+        }
+    })
 })
